@@ -2,6 +2,7 @@ package com.thoughtworks.capability.gtb;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.TimeZone;
 
 /**
  * 脑洞会议系统v3.0
@@ -13,7 +14,7 @@ import java.time.format.DateTimeFormatter;
  * 2.用Period来实现下个会议时间的计算
  *
  * @author itutry
- * @create 2020-05-19_18:43
+ * //@create 2020-05-19_18:43
  */
 public class MeetingSystemV3 {
 
@@ -32,6 +33,10 @@ public class MeetingSystemV3 {
       meetingTime = meetingTime.withDayOfYear(newDayOfYear);
 
       // 格式化新会议时间
+      TimeZone chicago = TimeZone.getTimeZone("America/Chicago");
+      TimeZone shanghai = TimeZone.getTimeZone("Asia/Shanghai");
+      int time = -shanghai.getRawOffset()+chicago.getRawOffset();
+      meetingTime = meetingTime.plusSeconds(time/1000);
       String showTimeStr = formatter.format(meetingTime);
       System.out.println(showTimeStr);
     } else {
